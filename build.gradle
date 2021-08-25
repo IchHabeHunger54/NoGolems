@@ -1,0 +1,81 @@
+buildscript {
+    repositories {
+        maven { url = 'https://maven.minecraftforge.net/' }
+        maven { url = 'https://repo.spongepowered.org/repository/maven-public' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+        classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-SNAPSHOT'
+    }
+}
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'org.spongepowered.mixin'
+group = 'ihh'
+version = '1.16.5-1.0'
+archivesBaseName = 'nogolems'
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
+minecraft {
+    mappings channel: 'snapshot', version: '20210309-1.16.5'
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+    runs {
+        client {
+            workingDirectory project.file('run')
+            property 'forge.logging.console.level', 'debug'
+            arg '-mixin.config=nogolems.mixins.json'
+            mods {
+                nogolems {
+                    source sourceSets.main
+                }
+            }
+        }
+        server {
+            workingDirectory project.file('run')
+            property 'forge.logging.console.level', 'debug'
+            arg '-mixin.config=nogolems.mixins.json'
+            mods {
+                nogolems {
+                    source sourceSets.main
+                }
+            }
+        }
+        data {
+            workingDirectory project.file('run')
+            property 'forge.logging.console.level', 'debug'
+            arg '-mixin.config=nogolems.mixins.json'
+            args '--mod', 'nogolems', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            mods {
+                nogolems {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
+}
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+repositories {
+    maven { url = "https://dvs1.progwml6.com/files/maven/" }
+    maven { url = "https://modmaven.k-4u.nl" }
+}
+dependencies {
+    minecraft 'net.minecraftforge:forge:1.16.5-36.1.0'
+    runtimeOnly fg.deobf("mezz.jei:jei-1.16.5:7.6.1.75")
+}
+jar {
+    manifest {
+        attributes([
+                "Specification-Title"     : "nogolems",
+                "Specification-Vendor"    : "IchHabeHunger54",
+                "Specification-Version"   : "1",
+                "Implementation-Title"    : project.name,
+                "Implementation-Version"  : project.version,
+                "Implementation-Vendor"   : "IchHabeHunger54",
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+                "MixinConfigs"            : "nogolems.mixins.json"
+        ])
+    }
+}
+jar.finalizedBy('reobfJar')
+mixin {
+    add sourceSets.main, "nogolems.refmap.json"
+}

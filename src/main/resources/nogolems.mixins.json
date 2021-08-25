@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "ihh.nogolems.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "nogolems.refmap.json",
+  "mixins": [
+    "CarvedPumpkinBlockMixin",
+    "WitherSkeletonSkullBlockMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -1,0 +1,24 @@
+modLoader="javafml"
+loaderVersion="[36,)"
+license="GPLv3"
+[[mods]]
+modId="nogolems"
+version="${file.jarVersion}"
+displayName="No golems"
+displayURL="http://www.curseforge.com/minecraft/mc-mods/no-golems"
+authors="IchHabeHunger54"
+description='''
+Disables creation of golems and withers in the world.
+'''
+[[dependencies.nogolems]]
+modId="forge"
+versionRange="[36,)"
+mandatory=true
+ordering="NONE"
+side="BOTH"
+[[dependencies.nogolems]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.16.5]"
+ordering="NONE"
+side="BOTH"
