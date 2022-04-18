@@ -1,12 +1,12 @@
 package ihh.nogolems.mixin;
 
 import ihh.nogolems.Config;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.CarvedPumpkinBlock;
-import net.minecraft.block.pattern.BlockPattern;
-import net.minecraft.block.pattern.BlockPatternBuilder;
-import net.minecraft.block.pattern.BlockStateMatcher;
-import net.minecraft.util.CachedBlockInfo;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CarvedPumpkinBlock;
+import net.minecraft.world.level.block.state.pattern.BlockInWorld;
+import net.minecraft.world.level.block.state.pattern.BlockPattern;
+import net.minecraft.world.level.block.state.pattern.BlockPatternBuilder;
+import net.minecraft.world.level.block.state.predicate.BlockStatePredicate;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -18,41 +18,41 @@ import javax.annotation.Nullable;
 
 @Mixin(CarvedPumpkinBlock.class)
 public class CarvedPumpkinBlockMixin {
-    @Shadow @Nullable private BlockPattern snowmanBasePattern;
-    @Shadow @Nullable private BlockPattern snowmanPattern;
-    @Shadow @Nullable private BlockPattern golemBasePattern;
-    @Shadow @Nullable private BlockPattern golemPattern;
-    private static final Supplier<BlockPattern> nullPattern = () -> BlockPatternBuilder.start().aisle("#").where('#', CachedBlockInfo.hasState(BlockStateMatcher.forBlock(Blocks.VOID_AIR))).build();
+    @Shadow @Nullable private BlockPattern snowGolemBase;
+    @Shadow @Nullable private BlockPattern snowGolemFull;
+    @Shadow @Nullable private BlockPattern ironGolemBase;
+    @Shadow @Nullable private BlockPattern ironGolemFull;
+    private static final Supplier<BlockPattern> nullPattern = () -> BlockPatternBuilder.start().aisle("#").where('#', BlockInWorld.hasState(BlockStatePredicate.forBlock(Blocks.VOID_AIR))).build();
 
-    @Inject(method = "getSnowmanBasePattern()Lnet/minecraft/block/pattern/BlockPattern;", at = @At("HEAD"), cancellable = true)
-    public void getSnowmanBasePatternMixin(CallbackInfoReturnable<BlockPattern> callback) {
+    @Inject(method = "getOrCreateSnowGolemBase()Lnet/minecraft/world/level/block/state/pattern/BlockPattern;", at = @At("HEAD"), cancellable = true)
+    public void getOrCreateSnowGolemBaseMixin(CallbackInfoReturnable<BlockPattern> callback) {
         if (Config.DISABLE_SNOW_GOLEM.get()) {
-            if (snowmanBasePattern != nullPattern.get())
-                snowmanBasePattern = nullPattern.get();
-        } else if (snowmanBasePattern == nullPattern.get()) snowmanBasePattern = null;
+            if (snowGolemBase != nullPattern.get())
+                snowGolemBase = nullPattern.get();
+        } else if (snowGolemBase == nullPattern.get()) snowGolemBase = null;
     }
 
-    @Inject(method = "getSnowmanPattern()Lnet/minecraft/block/pattern/BlockPattern;", at = @At("HEAD"), cancellable = true)
-    public void getSnowmanPatternMixin(CallbackInfoReturnable<BlockPattern> callback) {
+    @Inject(method = "getOrCreateSnowGolemFull()Lnet/minecraft/world/level/block/state/pattern/BlockPattern;", at = @At("HEAD"), cancellable = true)
+    public void getOrCreateSnowGolemFullMixin(CallbackInfoReturnable<BlockPattern> callback) {
         if (Config.DISABLE_SNOW_GOLEM.get()) {
-            if (snowmanPattern != nullPattern.get())
-                snowmanPattern = nullPattern.get();
-        } else if (snowmanPattern == nullPattern.get()) snowmanPattern = null;
+            if (snowGolemFull != nullPattern.get())
+                snowGolemFull = nullPattern.get();
+        } else if (snowGolemFull == nullPattern.get()) snowGolemFull = null;
     }
-    
-    @Inject(method = "getGolemBasePattern()Lnet/minecraft/block/pattern/BlockPattern;", at = @At("HEAD"), cancellable = true)
-    public void getGolemBasePatternMixin(CallbackInfoReturnable<BlockPattern> callback) {
+
+    @Inject(method = "getOrCreateIronGolemBase()Lnet/minecraft/world/level/block/state/pattern/BlockPattern;", at = @At("HEAD"), cancellable = true)
+    public void getOrCreateIronGolemBaseMixin(CallbackInfoReturnable<BlockPattern> callback) {
         if (Config.DISABLE_IRON_GOLEM.get()) {
-            if (golemBasePattern != nullPattern.get())
-                golemBasePattern = nullPattern.get();
-        } else if (golemBasePattern == nullPattern.get()) golemBasePattern = null;
+            if (ironGolemBase != nullPattern.get())
+                ironGolemBase = nullPattern.get();
+        } else if (ironGolemBase == nullPattern.get()) ironGolemBase = null;
     }
-    
-    @Inject(method = "getGolemPattern()Lnet/minecraft/block/pattern/BlockPattern;", at = @At("HEAD"), cancellable = true)
-    public void getGolemPatternMixin(CallbackInfoReturnable<BlockPattern> callback) {
+
+    @Inject(method = "getOrCreateIronGolemFull()Lnet/minecraft/world/level/block/state/pattern/BlockPattern;", at = @At("HEAD"), cancellable = true)
+    public void getOrCreateIronGolemFullMixin(CallbackInfoReturnable<BlockPattern> callback) {
         if (Config.DISABLE_IRON_GOLEM.get()) {
-            if (golemPattern != nullPattern.get())
-                golemPattern = nullPattern.get();
-        } else if (golemPattern == nullPattern.get()) golemPattern = null;
+            if (ironGolemFull != nullPattern.get())
+                ironGolemFull = nullPattern.get();
+        } else if (ironGolemFull == nullPattern.get()) ironGolemFull = null;
     }
 }

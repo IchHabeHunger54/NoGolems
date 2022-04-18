@@ -6,7 +6,7 @@
   "refmap": "nogolems.refmap.json",
   "mixins": [
     "CarvedPumpkinBlockMixin",
-    "WitherSkeletonSkullBlockMixin"
+    "WitherSkullBlockMixin"
   ],
   "client": [
   ],
