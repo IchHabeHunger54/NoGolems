@@ -24,7 +24,7 @@ public class CarvedPumpkinBlockMixin {
     @Shadow @Nullable private BlockPattern ironGolemFull;
     private static final Supplier<BlockPattern> nullPattern = () -> BlockPatternBuilder.start().aisle("#").where('#', BlockInWorld.hasState(BlockStatePredicate.forBlock(Blocks.VOID_AIR))).build();
 
-    @Inject(method = "getOrCreateSnowGolemBase()Lnet/minecraft/world/level/block/state/pattern/BlockPattern;", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "getOrCreateSnowGolemBase()Lnet/minecraft/world/level/block/state/pattern/BlockPattern;", at = @At("HEAD"))
     public void getOrCreateSnowGolemBaseMixin(CallbackInfoReturnable<BlockPattern> callback) {
         if (Config.DISABLE_SNOW_GOLEM.get()) {
             if (snowGolemBase != nullPattern.get())
@@ -32,7 +32,7 @@ public class CarvedPumpkinBlockMixin {
         } else if (snowGolemBase == nullPattern.get()) snowGolemBase = null;
     }
 
-    @Inject(method = "getOrCreateSnowGolemFull()Lnet/minecraft/world/level/block/state/pattern/BlockPattern;", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "getOrCreateSnowGolemFull()Lnet/minecraft/world/level/block/state/pattern/BlockPattern;", at = @At("HEAD"))
     public void getOrCreateSnowGolemFullMixin(CallbackInfoReturnable<BlockPattern> callback) {
         if (Config.DISABLE_SNOW_GOLEM.get()) {
             if (snowGolemFull != nullPattern.get())
@@ -40,7 +40,7 @@ public class CarvedPumpkinBlockMixin {
         } else if (snowGolemFull == nullPattern.get()) snowGolemFull = null;
     }
 
-    @Inject(method = "getOrCreateIronGolemBase()Lnet/minecraft/world/level/block/state/pattern/BlockPattern;", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "getOrCreateIronGolemBase()Lnet/minecraft/world/level/block/state/pattern/BlockPattern;", at = @At("HEAD"))
     public void getOrCreateIronGolemBaseMixin(CallbackInfoReturnable<BlockPattern> callback) {
         if (Config.DISABLE_IRON_GOLEM.get()) {
             if (ironGolemBase != nullPattern.get())
@@ -48,7 +48,7 @@ public class CarvedPumpkinBlockMixin {
         } else if (ironGolemBase == nullPattern.get()) ironGolemBase = null;
     }
 
-    @Inject(method = "getOrCreateIronGolemFull()Lnet/minecraft/world/level/block/state/pattern/BlockPattern;", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "getOrCreateIronGolemFull()Lnet/minecraft/world/level/block/state/pattern/BlockPattern;", at = @At("HEAD"))
     public void getOrCreateIronGolemFullMixin(CallbackInfoReturnable<BlockPattern> callback) {
         if (Config.DISABLE_IRON_GOLEM.get()) {
             if (ironGolemFull != nullPattern.get())

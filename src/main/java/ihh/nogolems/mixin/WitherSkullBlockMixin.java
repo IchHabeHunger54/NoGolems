@@ -22,7 +22,7 @@ public class WitherSkullBlockMixin {
     @Shadow @Nullable private static BlockPattern witherPatternFull;
     private static final Supplier<BlockPattern> nullPattern = () -> BlockPatternBuilder.start().aisle("#").where('#', BlockInWorld.hasState(BlockStatePredicate.forBlock(Blocks.VOID_AIR))).build();
 
-    @Inject(method = "getOrCreateWitherBase()Lnet/minecraft/world/level/block/state/pattern/BlockPattern;", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "getOrCreateWitherBase()Lnet/minecraft/world/level/block/state/pattern/BlockPattern;", at = @At("HEAD"))
     private static void getOrCreateWitherBaseMixin(CallbackInfoReturnable<BlockPattern> callback) {
         if (Config.DISABLE_WITHER.get()) {
             if (witherPatternBase != nullPattern.get())
@@ -30,7 +30,7 @@ public class WitherSkullBlockMixin {
         } else if (witherPatternBase == nullPattern.get()) witherPatternBase = null;
     }
 
-    @Inject(method = "getOrCreateWitherFull()Lnet/minecraft/world/level/block/state/pattern/BlockPattern;", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "getOrCreateWitherFull()Lnet/minecraft/world/level/block/state/pattern/BlockPattern;", at = @At("HEAD"))
     private static void getOrCreateWitherFullMixin(CallbackInfoReturnable<BlockPattern> callback) {
         if (Config.DISABLE_WITHER.get()) {
             if (witherPatternFull != nullPattern.get())
