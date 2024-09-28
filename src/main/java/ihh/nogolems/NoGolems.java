@@ -4,9 +4,9 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 
-@Mod(NoGolems.MODID)
+@Mod(NoGolems.MOD_ID)
 public class NoGolems {
-    public static final String MODID = "nogolems";
+    public static final String MOD_ID = "nogolems";
 
     public NoGolems() {
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, Config.SPEC);
